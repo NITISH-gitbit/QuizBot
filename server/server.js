@@ -23,10 +23,11 @@ app.use(helmet());
 // CORS configuration
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? 'https://your-frontend-domain.com' 
+    ? 'https://thankful-smoke-0b5ae4d00.2.azurestaticapps.net'
     : 'http://localhost:3000',
   credentials: true
 }));
+
 
 // Logging middleware
 app.use(morgan('combined'));
