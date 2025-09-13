@@ -23,14 +23,14 @@ const Modal = ({
       />
       
       {/* Modal */}
-      <div className="flex min-h-screen items-start sm:items-center justify-center p-2 sm:p-4">
+      <div className="flex min-h-screen items-center justify-center p-1 sm:p-2">
         <motion.div 
           className={`
             relative w-full ${maxWidth} 
             bg-white rounded-lg sm:rounded-xl shadow-xl
             transform transition-all
-            max-h-[95vh] overflow-y-auto
-            my-2 sm:my-4
+            max-h-[98vh] overflow-y-auto
+            my-1 sm:my-2
           `}
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -63,7 +63,7 @@ const Modal = ({
           )}
           
           {/* Content */}
-          <div className="p-4 sm:p-6">
+          <div className="p-2 sm:p-4">
             {children}
           </div>
         </motion.div>

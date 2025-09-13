@@ -131,26 +131,26 @@ const QuizConfigModal = ({ isOpen, onClose, onQuizGenerated }) => {
       isOpen={isOpen}
       onClose={onClose}
       title=""
-      maxWidth="max-w-3xl"
+      maxWidth="max-w-2xl"
     >
-      <div className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-t-lg sm:rounded-t-xl p-3 sm:p-4 lg:p-6 -m-4 sm:-m-6 mb-0">
-        <div className="text-center mb-4 sm:mb-6">
-          <div className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full mb-2 sm:mb-3">
-            <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-t-lg p-2 sm:p-3 -m-2 sm:-m-4 mb-0">
+        <div className="text-center mb-3 sm:mb-4">
+          <div className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full mb-2">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+          <h2 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
             Create Your Quiz
           </h2>
-          <p className="text-gray-600 mt-1 text-sm">Design a personalized quiz experience</p>
+          <p className="text-gray-600 text-xs sm:text-sm">Design a personalized quiz experience</p>
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 pt-4 sm:pt-6">
+      <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4 pt-3 sm:pt-4">
         {/* Topic Input - Made Prominent */}
         <div className="relative">
-          <label className="block text-sm sm:text-base font-semibold text-gray-800 mb-2 sm:mb-3">
+          <label className="block text-sm font-semibold text-gray-800 mb-2">
             🎯 What topic interests you today?
           </label>
           <div className="relative">
@@ -162,8 +162,8 @@ const QuizConfigModal = ({ isOpen, onClose, onQuizGenerated }) => {
               onBlur={handleTopicBlur}
               placeholder="Type any topic... (e.g., JavaScript, History, Science)"
               className="
-                w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border-2 
-                border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 sm:focus:ring-4 focus:ring-blue-100 
+                w-full px-3 py-2 text-sm border-2 
+                border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-100 
                 focus:border-blue-500 transition-all duration-300 bg-white shadow-sm
                 placeholder-gray-400
               "
@@ -177,20 +177,20 @@ const QuizConfigModal = ({ isOpen, onClose, onQuizGenerated }) => {
           
           {/* Enhanced Topic Suggestions */}
           {showTopicSuggestions && filteredTopics.length > 0 && (
-            <div className="topic-suggestions absolute z-20 w-full mt-2 bg-white border border-gray-200 rounded-lg sm:rounded-xl shadow-xl max-h-40 sm:max-h-48 overflow-y-auto">
-              <div className="p-2 sm:p-3 border-b border-gray-100">
-                <p className="text-xs sm:text-sm font-medium text-gray-500">Popular topics</p>
+            <div className="topic-suggestions absolute z-20 w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-xl max-h-32 overflow-y-auto">
+              <div className="p-2 border-b border-gray-100">
+                <p className="text-xs font-medium text-gray-500">Popular topics</p>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 p-2">
-                {filteredTopics.slice(0, 8).map((topic, index) => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 p-1">
+                {filteredTopics.slice(0, 6).map((topic, index) => (
                   <button
                     key={index}
                     type="button"
                     onClick={() => handleTopicSelect(topic)}
                     className="
-                      text-left px-2 sm:px-3 py-1 sm:py-2 hover:bg-blue-50 rounded-md sm:rounded-lg
+                      text-left px-2 py-1 hover:bg-blue-50 rounded-md
                       focus:bg-blue-50 focus:outline-none transition-colors
-                      text-xs sm:text-sm text-gray-700 hover:text-blue-600
+                      text-xs text-gray-700 hover:text-blue-600
                     "
                   >
                     {topic}
@@ -201,13 +201,13 @@ const QuizConfigModal = ({ isOpen, onClose, onQuizGenerated }) => {
           )}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
           {/* Difficulty Selection */}
           <div>
-            <label className="block text-sm sm:text-base font-semibold text-gray-800 mb-3">
+            <label className="block text-sm font-semibold text-gray-800 mb-2">
               ⚡ Difficulty Level
             </label>
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               {Object.entries(QUIZ_CONSTANTS.DIFFICULTY_LABELS).map(([value, label]) => (
                 <button
                   key={value}
@@ -215,7 +215,7 @@ const QuizConfigModal = ({ isOpen, onClose, onQuizGenerated }) => {
                   onClick={() => setConfig({ ...config, difficulty: value })}
                   disabled={loading}
                   className={`
-                    w-full py-2 sm:py-3 px-3 sm:px-4 rounded-lg sm:rounded-xl border-2 transition-all duration-300 text-left
+                    w-full py-2 px-3 rounded-lg border-2 transition-all duration-300 text-left
                     ${config.difficulty === value
                       ? 'border-blue-500 bg-blue-50 text-blue-700 shadow-md transform scale-105'
                       : 'border-gray-200 hover:border-blue-300 hover:bg-blue-50'
@@ -224,13 +224,13 @@ const QuizConfigModal = ({ isOpen, onClose, onQuizGenerated }) => {
                   `}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-medium text-xs sm:text-sm">{label}</span>
-                    <div className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full ${
+                    <span className="font-medium text-xs">{label}</span>
+                    <div className={`w-2 h-2 rounded-full ${
                       value === 'easy' ? 'bg-green-400' :
                       value === 'medium' ? 'bg-yellow-400' : 'bg-red-400'
                     }`}></div>
                   </div>
-                  <div className="text-xs text-gray-500 mt-1">
+                  <div className="text-xs text-gray-500 mt-0.5">
                     {value === 'easy' ? 'Perfect for beginners' :
                      value === 'medium' ? 'Balanced challenge' : 'For experts'}
                   </div>
@@ -241,10 +241,10 @@ const QuizConfigModal = ({ isOpen, onClose, onQuizGenerated }) => {
 
           {/* Question Type Selection */}
           <div>
-            <label className="block text-sm sm:text-base font-semibold text-gray-800 mb-3">
+            <label className="block text-sm font-semibold text-gray-800 mb-2">
               📝 Question Format
             </label>
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               {Object.entries(QUIZ_CONSTANTS.QUESTION_TYPE_LABELS).map(([value, label]) => (
                 <button
                   key={value}
@@ -252,7 +252,7 @@ const QuizConfigModal = ({ isOpen, onClose, onQuizGenerated }) => {
                   onClick={() => setConfig({ ...config, questionType: value })}
                   disabled={loading}
                   className={`
-                    w-full py-2 sm:py-3 px-3 sm:px-4 rounded-lg sm:rounded-xl border-2 transition-all duration-300 text-left
+                    w-full py-2 px-3 rounded-lg border-2 transition-all duration-300 text-left
                     ${config.questionType === value
                       ? 'border-indigo-500 bg-indigo-50 text-indigo-700 shadow-md transform scale-105'
                       : 'border-gray-200 hover:border-indigo-300 hover:bg-indigo-50'
@@ -261,12 +261,12 @@ const QuizConfigModal = ({ isOpen, onClose, onQuizGenerated }) => {
                   `}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-medium text-xs sm:text-sm">{label}</span>
-                    <div className="text-lg sm:text-xl">
+                    <span className="font-medium text-xs">{label}</span>
+                    <div className="text-base">
                       {value === 'mcq' ? '🔤' : '✅'}
                     </div>
                   </div>
-                  <div className="text-xs text-gray-500 mt-1">
+                  <div className="text-xs text-gray-500 mt-0.5">
                     {value === 'mcq' ? 'Multiple choice options' : 'True or false questions'}
                   </div>
                 </button>
@@ -276,8 +276,8 @@ const QuizConfigModal = ({ isOpen, onClose, onQuizGenerated }) => {
         </div>
 
         {/* Enhanced Number of Questions Slider */}
-        <div className="bg-gray-50 rounded-lg sm:rounded-xl p-3 sm:p-4">
-          <label className="block text-sm sm:text-base font-semibold text-gray-800 mb-3">
+        <div className="bg-gray-50 rounded-lg p-2 sm:p-3">
+          <label className="block text-sm font-semibold text-gray-800 mb-2">
             📊 Number of Questions: <span className="text-blue-600">{config.numberOfQuestions}</span>
           </label>
           <div className="relative">
@@ -289,20 +289,20 @@ const QuizConfigModal = ({ isOpen, onClose, onQuizGenerated }) => {
               onChange={(e) => setConfig({ ...config, numberOfQuestions: parseInt(e.target.value) })}
               disabled={loading}
               className="
-                w-full h-2 sm:h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer
-                slider-modern focus:outline-none focus:ring-2 sm:focus:ring-4 focus:ring-blue-100
+                w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer
+                slider-modern focus:outline-none focus:ring-2 focus:ring-blue-100
               "
               style={{
                 background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${((config.numberOfQuestions - QUIZ_CONSTANTS.MIN_QUESTIONS) / (QUIZ_CONSTANTS.MAX_QUESTIONS - QUIZ_CONSTANTS.MIN_QUESTIONS)) * 100}%, #e5e7eb ${((config.numberOfQuestions - QUIZ_CONSTANTS.MIN_QUESTIONS) / (QUIZ_CONSTANTS.MAX_QUESTIONS - QUIZ_CONSTANTS.MIN_QUESTIONS)) * 100}%, #e5e7eb 100%)`
               }}
             />
-            <div className="flex justify-between text-xs text-gray-500 mt-2">
+            <div className="flex justify-between text-xs text-gray-500 mt-1">
               <span className="flex items-center">
-                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-500 rounded-full mr-1"></span>
+                <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-1"></span>
                 {QUIZ_CONSTANTS.MIN_QUESTIONS} min
               </span>
               <span className="flex items-center">
-                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-500 rounded-full mr-1"></span>
+                <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-1"></span>
                 {QUIZ_CONSTANTS.MAX_QUESTIONS} max
               </span>
             </div>
@@ -310,14 +310,14 @@ const QuizConfigModal = ({ isOpen, onClose, onQuizGenerated }) => {
         </div>
 
         {/* Enhanced Timer Configuration */}
-        <div className="bg-gray-50 rounded-lg sm:rounded-xl p-3 sm:p-4">
-          <label className="block text-sm sm:text-base font-semibold text-gray-800 mb-3">
+        <div className="bg-gray-50 rounded-lg p-2 sm:p-3">
+          <label className="block text-sm font-semibold text-gray-800 mb-2">
             ⏱️ Total Quiz Time: <span className="text-indigo-600">{formatTime(config.totalTime)}</span>
           </label>
-          <div className="mb-3 p-2 sm:p-3 bg-white rounded-md sm:rounded-lg border border-gray-200">
-            <div className="flex items-center justify-between text-xs sm:text-sm">
+          <div className="mb-2 p-2 bg-white rounded-md border border-gray-200">
+            <div className="flex items-center justify-between text-xs">
               <div className="flex items-center text-green-600">
-                <svg className="w-3 h-3 sm:w-4 sm:h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
                 <span>Suggested: {formatTime(getSuggestedTime())}</span>
@@ -325,7 +325,7 @@ const QuizConfigModal = ({ isOpen, onClose, onQuizGenerated }) => {
               <button
                 type="button"
                 onClick={() => setConfig({ ...config, totalTime: getSuggestedTime() })}
-                className="text-blue-600 hover:text-blue-700 font-medium text-xs sm:text-sm hover:underline"
+                className="text-blue-600 hover:text-blue-700 font-medium text-xs hover:underline"
               >
                 Use Suggested
               </button>
@@ -341,51 +341,51 @@ const QuizConfigModal = ({ isOpen, onClose, onQuizGenerated }) => {
               onChange={(e) => setConfig({ ...config, totalTime: parseInt(e.target.value) })}
               disabled={loading}
               className="
-                w-full h-2 sm:h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer
-                slider-modern focus:outline-none focus:ring-2 sm:focus:ring-4 focus:ring-indigo-100
+                w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer
+                slider-modern focus:outline-none focus:ring-2 focus:ring-indigo-100
               "
               style={{
                 background: `linear-gradient(to right, #6366f1 0%, #6366f1 ${((config.totalTime - getMinTime()) / (getMaxTime() - getMinTime())) * 100}%, #e5e7eb ${((config.totalTime - getMinTime()) / (getMaxTime() - getMinTime())) * 100}%, #e5e7eb 100%)`
               }}
             />
-            <div className="flex justify-between text-xs text-gray-500 mt-2">
+            <div className="flex justify-between text-xs text-gray-500 mt-1">
               <span className="flex items-center">
-                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-indigo-500 rounded-full mr-1"></span>
+                <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-1"></span>
                 {formatTime(getMinTime())} min
               </span>
               <span className="flex items-center">
-                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-indigo-500 rounded-full mr-1"></span>
+                <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-1"></span>
                 {formatTime(getMaxTime())} max
               </span>
             </div>
           </div>
-          <p className="text-xs text-gray-500 mt-2 text-center">
+          <p className="text-xs text-gray-500 mt-1 text-center">
             ≈{Math.round(config.totalTime / config.numberOfQuestions)}s per question
           </p>
         </div>
 
         {/* Error Display */}
         {error && (
-          <div className="p-3 sm:p-4 bg-red-50 border border-red-200 rounded-xl">
+          <div className="p-2 bg-red-50 border border-red-200 rounded-lg">
             <div className="flex items-center">
-              <svg className="w-5 h-5 text-red-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-4 h-4 text-red-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
               </svg>
-              <p className="text-red-600 text-sm">{error}</p>
+              <p className="text-red-600 text-xs">{error}</p>
             </div>
           </div>
         )}
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3 pt-3 sm:pt-4">
+        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 pt-2">
           <button
             type="button"
             onClick={handleReset}
             disabled={loading}
             className="
-              flex-1 py-2 sm:py-3 px-3 sm:px-4 border-2 border-gray-300 rounded-lg sm:rounded-xl
-              text-gray-700 hover:bg-gray-50 focus:ring-2 sm:focus:ring-4 focus:ring-gray-100
-              transition-all duration-300 disabled:opacity-50 font-medium text-sm sm:text-base
+              flex-1 py-2 px-3 border-2 border-gray-300 rounded-lg
+              text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-gray-100
+              transition-all duration-300 disabled:opacity-50 font-medium text-sm
               hover:border-gray-400 hover:shadow-md
             "
           >
@@ -396,11 +396,11 @@ const QuizConfigModal = ({ isOpen, onClose, onQuizGenerated }) => {
             type="submit"
             disabled={loading || !config.topic.trim()}
             className="
-              flex-1 sm:flex-2 py-2 sm:py-3 px-4 sm:px-6 bg-gradient-to-r from-blue-600 to-indigo-600
-              hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg sm:rounded-xl
-              focus:ring-2 sm:focus:ring-4 focus:ring-blue-100 transition-all duration-300
+              flex-1 sm:flex-2 py-2 px-4 bg-gradient-to-r from-blue-600 to-indigo-600
+              hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg
+              focus:ring-2 focus:ring-blue-100 transition-all duration-300
               disabled:opacity-50 disabled:cursor-not-allowed
-              flex items-center justify-center space-x-2 sm:space-x-3 font-semibold text-sm sm:text-base
+              flex items-center justify-center space-x-2 font-semibold text-sm
               hover:shadow-lg transform hover:scale-105
             "
           >
