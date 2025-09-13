@@ -1,0 +1,81 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+.pnpm-debug.log
+
+# Build outputs
+dist/
+build/
+coverage/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Mac
+.AppleDouble
+.LSOverride
+
+# Optional npm cache directory
+.npm
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache/
+
+# Next.js
+.next/
+
+# Storybook
+.out/
+
+# dotenv environment variables file
+.env.*
+
+# JetBrains
+*.iml
+
+# TypeScript
+*.tsbuildinfo
+
+# Misc
+*.tgz
+
+# Windows image file caches
+ehthumbs.db
+
+# Windows Installer files
+*.cab
+
+# Temporary files
+tmp/
+temp/
+
+# VS Code workspace
+*.code-workspace
+
+# Lockfiles (if you prefer not to track any lockfile)
+# package-lock.json
+# yarn.lock
