@@ -2,6 +2,10 @@ import axios from 'axios';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://quiz-backend-5-aegkfaf6bkaeepbq.centralindia-01.azurewebsites.net/api' ;
 
+// Log the API base URL for debugging
+console.log('API_BASE_URL:', API_BASE_URL);
+console.log('REACT_APP_API_URL:', process.env.REACT_APP_API_URL);
+
 // Create axios instance with default config
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -14,7 +18,9 @@ const api = axios.create({
 // Request interceptor
 api.interceptors.request.use(
   (config) => {
-    console.log(`Making ${config.method?.toUpperCase()} request to ${config.url}`);
+    console.log(`Making ${config.method?.toUpperCase()} request to ${config.baseURL}${config.url}`);
+    console.log('Full request URL:', `${config.baseURL}${config.url}`);
+    console.log('Config baseURL:', config.baseURL);
     return config;
   },
   (error) => {

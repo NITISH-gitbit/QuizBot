@@ -22,11 +22,18 @@ app.use(helmet());
 
 // CORS configuration
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? 'https://thankful-smoke-0b5ae4d00.2.azurestaticapps.net'
-    : 'http://localhost:3000',
-  credentials: true
+  origin: [
+    'http://localhost:3000',
+    'https://thankful-smoke-0b5ae4d00.2.azurestaticapps.net',
+    'https://quizlet-gvehdvcvd9aehpfw.centralindia-01.azurewebsites.net'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+// Handle preflight requests
+app.options('*', cors());
 
 
 // Logging middleware
