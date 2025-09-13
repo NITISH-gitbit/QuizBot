@@ -23,12 +23,14 @@ const Modal = ({
       />
       
       {/* Modal */}
-      <div className="flex min-h-screen items-center justify-center p-4">
+      <div className="flex min-h-screen items-start sm:items-center justify-center p-2 sm:p-4">
         <motion.div 
           className={`
             relative w-full ${maxWidth} 
-            bg-white rounded-lg shadow-xl
+            bg-white rounded-lg sm:rounded-xl shadow-xl
             transform transition-all
+            max-h-[95vh] overflow-y-auto
+            my-2 sm:my-4
           `}
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -37,7 +39,7 @@ const Modal = ({
         >
           {/* Header */}
           {(title || showCloseButton) && (
-            <div className="flex items-center justify-between p-6 border-b">
+            <div className="flex items-center justify-between p-4 sm:p-6 border-b">
               {title && (
                 <h3 className="text-lg font-semibold text-gray-900">
                   {title}
@@ -61,7 +63,7 @@ const Modal = ({
           )}
           
           {/* Content */}
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
             {children}
           </div>
         </motion.div>

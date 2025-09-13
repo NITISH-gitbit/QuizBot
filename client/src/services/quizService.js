@@ -62,6 +62,28 @@ export const quizService = {
         throw new Error('Missing required quiz configuration');
       }
 
+      // Calculate suggested minimum time based on difficulty and question type
+      const getSuggestedMinTime = (diff, qType, numQ) => {
+        const baseTimePerQuestion = {
+          'easy': qType === 'mcq' ? 30 : 20,
+          'medium': qType === 'mcq' ? 45 : 30,
+          'hard': qType === 'mcq' ? 60 : 45
+        };
+        return (baseTimePerQuestion[diff] || 45) * numQ;
+      };
+
+      const suggestedMinTime = getSuggestedMinTime(difficulty, questionType, parseInt(numberOfQuestions));
+      const computedTotalTime = parseInt(totalTime) || suggestedMinTime;
+      
+      // Validate timer: minimum is suggested time, maximum is 30 minutes (1800 seconds)
+      if (computedTotalTime < suggestedMinTime) {
+        throw new Error(`Total time must be at least ${Math.ceil(suggestedMinTime/60)} minutes for this configuration`);
+      }
+      
+      if (computedTotalTime > 1800) {
+        throw new Error('Total time cannot exceed 30 minutes');
+      }
+
       console.log('Generating quiz with config:', config);
       
       const response = await api.post('/quiz/generate', {
@@ -69,7 +91,7 @@ export const quizService = {
         difficulty,
         questionType,
         numberOfQuestions: parseInt(numberOfQuestions),
-        totalTime: parseInt(totalTime) || (parseInt(numberOfQuestions) * 60)
+        totalTime: computedTotalTime
       });
 
       if (!response.data || !response.data.questions) {

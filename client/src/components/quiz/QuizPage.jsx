@@ -95,20 +95,20 @@ const QuizPage = ({ onComplete, onBack }) => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
-        <div className="max-w-6xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-3 sm:px-4 py-3 sm:py-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-3 sm:space-y-0">
             {/* Quiz Info */}
-            <div>
-              <h1 className="text-xl font-semibold text-gray-800">
+            <div className="min-w-0 flex-1">
+              <h1 className="text-lg sm:text-xl font-semibold text-gray-800 truncate">
                 {currentQuiz.topic}
               </h1>
-              <p className="text-sm text-gray-500 capitalize">
+              <p className="text-xs sm:text-sm text-gray-500 capitalize">
                 {currentQuiz.difficulty} • {currentQuiz.questionType === 'mcq' ? 'Multiple Choice' : 'True/False'}
               </p>
             </div>
 
             {/* Timer and Exit */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4 w-full sm:w-auto justify-between sm:justify-end">
               <Timer 
                 duration={currentQuiz.totalTime || (currentQuiz.numberOfQuestions * 60)} 
                 isActive={true}
@@ -120,9 +120,9 @@ const QuizPage = ({ onComplete, onBack }) => {
               <button
                 onClick={handleExit}
                 className="
-                  px-4 py-2 text-gray-600 hover:text-red-600 
+                  px-3 sm:px-4 py-2 text-xs sm:text-sm text-gray-600 hover:text-red-600 
                   border border-gray-300 hover:border-red-300 rounded-lg
-                  transition-colors duration-200
+                  transition-colors duration-200 whitespace-nowrap
                 "
               >
                 Exit Quiz
@@ -133,13 +133,15 @@ const QuizPage = ({ onComplete, onBack }) => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="max-w-6xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
         {/* Progress Bar */}
-        <ProgressBar
-          current={progress.current}
-          total={progress.total}
-          percentage={Number(((progress.current / (progress.total || 1)) * 100).toFixed(2))}
-        />
+        <div className="mb-4 sm:mb-6">
+          <ProgressBar
+            current={progress.current}
+            total={progress.total}
+            percentage={Number(((progress.current / (progress.total || 1)) * 100).toFixed(2))}
+          />
+        </div>
 
         {/* Question Card */}
         <QuestionCard
@@ -152,13 +154,13 @@ const QuizPage = ({ onComplete, onBack }) => {
         />
 
         {/* Navigation */}
-        <div className="flex justify-between items-center mt-8">
+        <div className="flex flex-col sm:flex-row justify-between items-center mt-6 sm:mt-8 space-y-4 sm:space-y-0">
           <button
             onClick={handlePrevious}
             disabled={currentSession.currentQuestionIndex === 0 || loading}
             className="
-              flex items-center space-x-2 px-6 py-3 
-              border border-gray-300 rounded-lg
+              w-full sm:w-auto flex items-center justify-center space-x-2 px-4 sm:px-6 py-3 
+              border border-gray-300 rounded-lg text-sm sm:text-base
               text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed
               transition-colors duration-200
             "
@@ -169,8 +171,8 @@ const QuizPage = ({ onComplete, onBack }) => {
             <span>Previous</span>
           </button>
 
-          <div className="text-center">
-            <p className="text-sm text-gray-600">
+          <div className="text-center order-first sm:order-none">
+            <p className="text-xs sm:text-sm text-gray-600">
               {progress.answered} of {progress.total} questions answered
             </p>
           </div>
@@ -179,8 +181,8 @@ const QuizPage = ({ onComplete, onBack }) => {
             onClick={handleNext}
             disabled={!currentAnswered || loading}
             className="
-              flex items-center space-x-2 px-6 py-3 
-              bg-gradient-to-r from-blue-600 to-indigo-600 
+              w-full sm:w-auto flex items-center justify-center space-x-2 px-4 sm:px-6 py-3 
+              bg-gradient-to-r from-blue-600 to-indigo-600 text-sm sm:text-base
               hover:from-blue-700 hover:to-indigo-700 
               text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed
               transition-colors duration-200

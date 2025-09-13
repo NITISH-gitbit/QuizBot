@@ -41,12 +41,33 @@ class QuizController {
         });
       }
 
-      // Validate totalTime (optional, defaults to numberOfQuestions * 60)
-      const validTotalTime = totalTime ? parseInt(totalTime) : numberOfQuestions * 60;
-      if (validTotalTime < 300 || validTotalTime > 3600) {
+      // Calculate suggested minimum time based on difficulty and question type
+      const getSuggestedMinTime = (difficulty, questionType, numberOfQuestions) => {
+        const baseTimePerQuestion = {
+          'easy': questionType === 'mcq' ? 30 : 20,
+          'medium': questionType === 'mcq' ? 45 : 30,
+          'hard': questionType === 'mcq' ? 60 : 45
+        };
+        const timePerQuestion = baseTimePerQuestion[difficulty] || 45;
+        return timePerQuestion * numberOfQuestions;
+      };
+
+      // Validate totalTime with dynamic minimum
+      const validTotalTime = totalTime ? parseInt(totalTime) : getSuggestedMinTime(difficulty, questionType, numberOfQuestions);
+      const minTime = getSuggestedMinTime(difficulty, questionType, numberOfQuestions);
+      const maxTime = 1800; // 30 minutes
+
+      if (validTotalTime < minTime) {
         return res.status(400).json({
           error: true,
-          message: 'Total time must be between 5 minutes (300s) and 60 minutes (3600s)'
+          message: `Total time must be at least ${Math.ceil(minTime/60)} minutes for this configuration`
+        });
+      }
+
+      if (validTotalTime > maxTime) {
+        return res.status(400).json({
+          error: true,
+          message: 'Total time cannot exceed 30 minutes'
         });
       }
 
