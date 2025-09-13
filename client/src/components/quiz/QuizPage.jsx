@@ -138,7 +138,7 @@ const QuizPage = ({ onComplete, onBack }) => {
         <ProgressBar
           current={progress.current}
           total={progress.total}
-          percentage={(progress.current / progress.total) * 100}
+          percentage={Number(((progress.current / (progress.total || 1)) * 100).toFixed(2))}
         />
 
         {/* Question Card */}
