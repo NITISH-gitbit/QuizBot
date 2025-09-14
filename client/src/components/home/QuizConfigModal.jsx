@@ -18,6 +18,7 @@ const QuizConfigModal = ({ isOpen, onClose, onQuizGenerated }) => {
 
   const [showTopicSuggestions, setShowTopicSuggestions] = useState(false);
   const [filteredTopics, setFilteredTopics] = useState(QUIZ_TOPICS);
+  const [showTopicTooltip, setShowTopicTooltip] = useState(false);
 
   // Get suggested timer based on difficulty and number of questions
   const getSuggestedTime = useCallback(() => {
@@ -36,7 +37,7 @@ const QuizConfigModal = ({ isOpen, onClose, onQuizGenerated }) => {
   // Auto-update timer when difficulty, question type, or number of questions changes
   useEffect(() => {
     const suggestedTime = getSuggestedTime();
-    setConfig(prev => ({ ...prev, totalTime: Math.max(suggestedTime, prev.totalTime) }));
+    setConfig(prev => ({ ...prev, totalTime: suggestedTime }));
   }, [getSuggestedTime]);
 
   // Handle topic input change with filtering
@@ -215,12 +216,14 @@ const QuizConfigModal = ({ isOpen, onClose, onQuizGenerated }) => {
                   onClick={() => setConfig({ ...config, difficulty: value })}
                   disabled={loading}
                   className={`
-                    w-full py-2 px-3 rounded-lg border-2 transition-all duration-300 text-left
+                    w-full py-2 px-3 rounded-lg transition-all duration-300 text-left
                     ${config.difficulty === value
-                      ? 'border-blue-500 bg-blue-50 text-blue-700 shadow-md transform scale-105'
-                      : 'border-gray-200 hover:border-blue-300 hover:bg-blue-50'
+                      ? 'bg-gradient-to-br from-blue-50 to-indigo-50 text-blue-700 shadow-inner border-0 transform translate-y-0.5' +
+                        ' shadow-[inset_4px_4px_8px_rgba(59,130,246,0.15),inset_-4px_-4px_8px_rgba(255,255,255,0.7)]'
+                      : 'bg-white border border-gray-200 hover:border-blue-300 hover:bg-blue-50 shadow-sm hover:shadow-md' +
+                        ' shadow-[2px_2px_4px_rgba(0,0,0,0.1),-2px_-2px_4px_rgba(255,255,255,0.7)]'
                     }
-                    ${loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:shadow-md'}
+                    ${loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:shadow-lg active:shadow-inner'}
                   `}
                 >
                   <div className="flex items-center justify-between">
@@ -252,12 +255,14 @@ const QuizConfigModal = ({ isOpen, onClose, onQuizGenerated }) => {
                   onClick={() => setConfig({ ...config, questionType: value })}
                   disabled={loading}
                   className={`
-                    w-full py-2 px-3 rounded-lg border-2 transition-all duration-300 text-left
+                    w-full py-2 px-3 rounded-lg transition-all duration-300 text-left
                     ${config.questionType === value
-                      ? 'border-indigo-500 bg-indigo-50 text-indigo-700 shadow-md transform scale-105'
-                      : 'border-gray-200 hover:border-indigo-300 hover:bg-indigo-50'
+                      ? 'bg-gradient-to-br from-indigo-50 to-purple-50 text-indigo-700 shadow-inner border-0 transform translate-y-0.5' +
+                        ' shadow-[inset_4px_4px_8px_rgba(99,102,241,0.15),inset_-4px_-4px_8px_rgba(255,255,255,0.7)]'
+                      : 'bg-white border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 shadow-sm hover:shadow-md' +
+                        ' shadow-[2px_2px_4px_rgba(0,0,0,0.1),-2px_-2px_4px_rgba(255,255,255,0.7)]'
                     }
-                    ${loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:shadow-md'}
+                    ${loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:shadow-lg active:shadow-inner'}
                   `}
                 >
                   <div className="flex items-center justify-between">
@@ -310,9 +315,9 @@ const QuizConfigModal = ({ isOpen, onClose, onQuizGenerated }) => {
         </div>
 
         {/* Enhanced Timer Configuration */}
-        <div className="bg-gray-50 rounded-lg p-2 sm:p-3">
+        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-3 border border-indigo-200 shadow-sm">
           <label className="block text-sm font-semibold text-gray-800 mb-2">
-            ⏱️ Total Quiz Time: <span className="text-indigo-600">{formatTime(config.totalTime)}</span>
+            ⏱️ Total Quiz Time: <span className="text-2xl font-bold text-indigo-600 bg-white px-2 py-1 rounded-lg shadow-sm">{formatTime(config.totalTime)}</span>
           </label>
           <div className="mb-2 p-2 bg-white rounded-md border border-gray-200">
             <div className="flex items-center justify-between text-xs">
@@ -395,8 +400,10 @@ const QuizConfigModal = ({ isOpen, onClose, onQuizGenerated }) => {
           <button
             type="submit"
             disabled={loading || !config.topic.trim()}
+            onMouseEnter={() => !config.topic.trim() && setShowTopicTooltip(true)}
+            onMouseLeave={() => setShowTopicTooltip(false)}
             className="
-              flex-1 sm:flex-2 py-2 px-4 bg-gradient-to-r from-blue-600 to-indigo-600
+              relative flex-1 sm:flex-2 py-2 px-4 bg-gradient-to-r from-blue-600 to-indigo-600
               hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg
               focus:ring-2 focus:ring-blue-100 transition-all duration-300
               disabled:opacity-50 disabled:cursor-not-allowed
@@ -413,6 +420,14 @@ const QuizConfigModal = ({ isOpen, onClose, onQuizGenerated }) => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </>
+            )}
+            
+            {/* Tooltip */}
+            {showTopicTooltip && !config.topic.trim() && (
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 text-sm text-white bg-gray-800 rounded-lg shadow-lg whitespace-nowrap z-50">
+                Please enter a topic first!
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-800"></div>
+              </div>
             )}
           </button>
         </div>
